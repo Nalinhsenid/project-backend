@@ -1,12 +1,18 @@
 package com.security.training.payload.request;
 
-public class LoginRequest {
-    private String username;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+public class LoginRequest {
+//    @NotBlank
+//    @Size(min = 2, max = 40)
+    private String username;
+//    @NotBlank
+//    @Size(min = 2, max = 40)
     private String password;
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -14,7 +20,7 @@ public class LoginRequest {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
