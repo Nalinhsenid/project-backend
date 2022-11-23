@@ -1,4 +1,4 @@
-package com.security.training.payload.response;
+package com.hsenid.lms.payload.response;
 
 
 import java.util.List;

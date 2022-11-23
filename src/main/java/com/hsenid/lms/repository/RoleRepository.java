@@ -1,7 +1,7 @@
-package com.security.training.repository;
+package com.hsenid.lms.repository;
 
-import com.security.training.model.ERole;
-import com.security.training.model.Role;
+import com.hsenid.lms.model.ERole;
+import com.hsenid.lms.model.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

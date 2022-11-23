@@ -1,6 +1,6 @@
-package com.security.training.repository;
+package com.hsenid.lms.repository;
 
-import com.security.training.model.User;
+import com.hsenid.lms.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

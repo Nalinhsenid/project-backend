@@ -1,7 +1,7 @@
-package com.security.training.services;
+package com.hsenid.lms.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.security.training.model.User;
+import com.hsenid.lms.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

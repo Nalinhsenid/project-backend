@@ -1,8 +1,8 @@
-package com.security.training.config;
+package com.hsenid.lms.config;
 
-import com.security.training.jwt.AuthEntryPointJwt;
-import com.security.training.jwt.AuthTokenFilter;
-import com.security.training.services.UserDetailsServiceImpl;
+import com.hsenid.lms.services.UserDetailsServiceImpl;
+import com.hsenid.lms.jwt.AuthEntryPointJwt;
+import com.hsenid.lms.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

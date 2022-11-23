@@ -1,6 +1,6 @@
-package com.security.training.jwt;
+package com.hsenid.lms.jwt;
 
-import com.security.training.services.UserDetailsImpl;
+import com.hsenid.lms.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

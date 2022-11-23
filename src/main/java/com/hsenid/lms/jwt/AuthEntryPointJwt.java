@@ -1,4 +1,4 @@
-package com.security.training.jwt;
+package com.hsenid.lms.jwt;
 
 
 import org.slf4j.Logger;

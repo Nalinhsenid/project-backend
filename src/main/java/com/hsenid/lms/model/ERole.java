@@ -1,4 +1,4 @@
-package com.security.training.model;
+package com.hsenid.lms.model;
 
 public enum ERole {
     ROLE_USER,

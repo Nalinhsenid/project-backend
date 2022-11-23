@@ -1,7 +1,7 @@
-package com.security.training.services;
+package com.hsenid.lms.services;
 
-import com.security.training.model.User;
-import com.security.training.repository.UserRepository;
+import com.hsenid.lms.repository.UserRepository;
+import com.hsenid.lms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

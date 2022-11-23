@@ -1,4 +1,4 @@
-package com.security.training.payload.response;
+package com.hsenid.lms.payload.response;
 
 public class MessageResponse {
     private String message;

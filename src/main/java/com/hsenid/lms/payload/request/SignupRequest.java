@@ -1,4 +1,4 @@
-package com.security.training.payload.request;
+package com.hsenid.lms.payload.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

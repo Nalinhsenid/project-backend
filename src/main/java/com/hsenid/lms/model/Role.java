@@ -1,4 +1,4 @@
-package com.security.training.model;
+package com.hsenid.lms.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
