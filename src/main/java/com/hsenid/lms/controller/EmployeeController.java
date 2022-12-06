@@ -34,32 +34,5 @@ public class EmployeeController {
         return "Admin Board.";
     }
 
-    @GetMapping("/employees")
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<Employee> getEmployees(){
-        return employeeService.getEmployees();
-    }
 
-    @PostMapping("/employees")
-    @PreAuthorize("hasRole('ADMIN')")
-
-    public String addEmployee(@RequestBody Employee employee){
-        employeeService.addEmployee(employee);
-        return "Added Employee with id : " +employee.getId();
-    }
-
-    @GetMapping("/employees/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-
-    public Employee getStudent(@PathVariable String id){
-        return employeeService.getEmployee(id);
-    }
-
-    @DeleteMapping("/employees/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String deleteStudent(@PathVariable String id){
-        employeeService.deleteEmployee(id);
-        return "Delete student with id :" +id;
-
-    }
 }
