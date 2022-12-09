@@ -1,7 +1,7 @@
 package com.hsenid.lms.controller;
 
 import com.hsenid.lms.model.Employee;
-import com.hsenid.lms.services.EmployeesService;
+import com.hsenid.lms.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +15,16 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1")
-public class EmployeesController {
+public class EmployeeController {
     @Autowired
-    private EmployeesService employeesService;
+    private EmployeeService employeeService;
 
     @GetMapping("/employees")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Employee>> getEmployees(){
         try {
             List<Employee> employees = new ArrayList<>();
-            employeesService.getEmployees().forEach(employees::add);
+            employeeService.getEmployees().forEach(employees::add);
 
             if (employees.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -39,7 +39,7 @@ public class EmployeesController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         try {
-            Employee _employee = employeesService.addEmployee(employee);
+            Employee _employee = employeeService.addEmployee(employee);
             return new ResponseEntity<>(_employee, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,7 +49,7 @@ public class EmployeesController {
     @GetMapping("/employees/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> getEmployee(@PathVariable String id){
-        Optional<Employee> employeeData = Optional.ofNullable(employeesService.getEmployee(id));
+        Optional<Employee> employeeData = Optional.ofNullable(employeeService.getEmployee(id));
 
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class EmployeesController {
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable String id){
 //        employeesService.deleteEmployee(id);
         try {
-            employeesService.deleteEmployee(id);
+            employeeService.deleteEmployee(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
