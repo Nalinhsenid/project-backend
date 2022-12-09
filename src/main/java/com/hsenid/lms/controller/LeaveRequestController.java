@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/leaves")
 public class LeaveRequestController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
-    @GetMapping("/leaves")
+    @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<LeaveRequest>> getLeaveRequests(){
         try {
@@ -35,7 +35,7 @@ public class LeaveRequestController {
         }
     }
 
-    @PostMapping("/leaves")
+    @PostMapping("")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<LeaveRequest> addLeaveRequest(@RequestBody LeaveRequest leaveRequest){
         try {
@@ -46,7 +46,7 @@ public class LeaveRequestController {
         }
     }
 
-    @GetMapping("/leaves/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<LeaveRequest> getLeaveRequestById(@PathVariable String id){
         Optional<LeaveRequest> leaveRequest = Optional.ofNullable(leaveRequestService.getLeaveRequestById(id));
@@ -58,7 +58,7 @@ public class LeaveRequestController {
         }
     }
 
-    @DeleteMapping("/leaves/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteLeaveRequest(@PathVariable String id) {
         try {

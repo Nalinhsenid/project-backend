@@ -35,7 +35,6 @@ public class EmployeesController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @PostMapping("/employees")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){

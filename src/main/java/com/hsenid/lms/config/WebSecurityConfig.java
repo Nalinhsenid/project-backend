@@ -33,12 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
-//    BCryptPasswordEncoder bCryptPasswordEncoder;
-//
-//    public void WebSecurity(UserDetailsServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-//        this.userDetailsService = userService;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

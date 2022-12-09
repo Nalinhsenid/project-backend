@@ -1,7 +1,6 @@
 package com.hsenid.lms.model;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -13,8 +12,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class LeaveRequest {
-    @Id
-    private String id;
+
+    private String employeeId;
     private Date leaveDate;
+    private LeaveType leaveType;
+    private Float leaveAmount;
     private Boolean isApproved;
 }
