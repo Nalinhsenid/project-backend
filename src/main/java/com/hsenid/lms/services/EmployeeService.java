@@ -30,5 +30,10 @@ public class EmployeeService {
     }
 
 
+    public Employee updateEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+
 
 }

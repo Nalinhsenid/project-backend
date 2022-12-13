@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/leaves")
 public class LeaveRequestController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
-    @GetMapping("/leaves")
+    @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<LeaveRequest>> getLeaveRequests(){
         try {
@@ -35,7 +35,7 @@ public class LeaveRequestController {
         }
     }
 
-    @PostMapping("/leaves")
+    @PostMapping("")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<LeaveRequest> addLeaveRequest(@RequestBody LeaveRequest leaveRequest){
         try {
@@ -46,10 +46,10 @@ public class LeaveRequestController {
         }
     }
 
-    @GetMapping("/leaves/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<LeaveRequest> getLeaveRequestById(@PathVariable Long id){
-        Optional<LeaveRequest> leaveRequest = Optional.ofNullable(leaveRequestService.getLeaveRequestById(id));
+    public ResponseEntity<List<LeaveRequest>> getLeaveRequestById(@PathVariable String id){
+        Optional<List<LeaveRequest>> leaveRequest = Optional.ofNullable(leaveRequestService.getLeaveRequestById(id));
 
         if (leaveRequest.isPresent()) {
             return new ResponseEntity<>(leaveRequest.get(), HttpStatus.OK);
@@ -58,7 +58,19 @@ public class LeaveRequestController {
         }
     }
 
-    @DeleteMapping("/leaves/{id}")
+    @GetMapping("/approved/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<LeaveRequest>> getApprovedLeaveRequestById(@PathVariable String id){
+        Optional<List<LeaveRequest>> leaveRequest = Optional.ofNullable(leaveRequestService.getApprovedLeaveRequestById(id));
+
+        if (leaveRequest.isPresent()) {
+            return new ResponseEntity<>(leaveRequest.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteLeaveRequest(@PathVariable Long id) {
         try {
@@ -68,5 +80,18 @@ public class LeaveRequestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    @PatchMapping("/{eId}/id")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<HttpStatus> acceptedLeaveRequest(@PathVariable Long id) {
+//        try {
+//            leaveRequestService.deleteLeaveRequest(id);
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+
+
+
 
 }

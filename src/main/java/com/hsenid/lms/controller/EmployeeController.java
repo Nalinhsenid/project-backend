@@ -2,6 +2,7 @@ package com.hsenid.lms.controller;
 
 import com.hsenid.lms.model.Employee;
 import com.hsenid.lms.services.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/employees")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/employees")
+    @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Employee>> getEmployees(){
+        log.info("All employee data");
+
         try {
             List<Employee> employees = new ArrayList<>();
             employeeService.getEmployees().forEach(employees::add);
@@ -35,21 +39,24 @@ public class EmployeeController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/employees")
+    @PostMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
+        log.info("Employee created");
+
         try {
-            Employee _employee = employeeService.addEmployee(employee);
-            return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+            Employee employeeD = employeeService.addEmployee(employee);
+            return new ResponseEntity<>(employeeD, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> getEmployee(@PathVariable String id){
         Optional<Employee> employeeData = Optional.ofNullable(employeeService.getEmployee(id));
+
 
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
@@ -58,13 +65,27 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable String id){
 //        employeesService.deleteEmployee(id);
+        log.info("Employee data deleted");
+
         try {
             employeeService.deleteEmployee(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+
+    public ResponseEntity<Employee> update(@PathVariable String id,@RequestBody Employee employee) {
+        log.info("Employee data updated");
+        try {
+            Employee employeeD = employeeService.updateEmployee(employee);
+            return new ResponseEntity<>(employeeD,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

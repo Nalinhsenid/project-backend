@@ -25,12 +25,18 @@ public class LeaveRequestService {
         return leaveRepository.findAll();
     }
 
-    public LeaveRequest getLeaveRequestById(Long id){
-        return leaveRepository.findById(id).get();
+    public List<LeaveRequest> getLeaveRequestById(String id){
+        return leaveRepository.findByEmployeeId(id);
+    }
+    public List<LeaveRequest> getApprovedLeaveRequestById(String id){
+        return leaveRepository.findByEmployeeIdAndIsApprovedIsTrue(id);
     }
 
     public void deleteLeaveRequest(Long id) {
         leaveRepository.deleteById(id);
     }
+//    public void acceptLeaveRequest(Long id) {
+//        leaveRepository.p(id);
+//    }
 
 }
