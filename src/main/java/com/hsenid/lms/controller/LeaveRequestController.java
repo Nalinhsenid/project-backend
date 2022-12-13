@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/leaves")
+@RequestMapping("/api/v1")
 public class LeaveRequestController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
-    @GetMapping("")
+    @GetMapping("/leaves")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<LeaveRequest>> getLeaveRequests(){
         try {
@@ -35,20 +35,20 @@ public class LeaveRequestController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/leaves")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<LeaveRequest> addLeaveRequest(@RequestBody LeaveRequest leaveRequest){
         try {
-            LeaveRequest _leaveRequest = leaveRequestService.addLeaveRequest(leaveRequest);
-            return new ResponseEntity<>(_leaveRequest, HttpStatus.CREATED);
+            LeaveRequest leaveRequestD = leaveRequestService.addLeaveRequest(leaveRequest);
+            return new ResponseEntity<>(leaveRequestD, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/leaves/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<LeaveRequest> getLeaveRequestById(@PathVariable String id){
+    public ResponseEntity<LeaveRequest> getLeaveRequestById(@PathVariable Long id){
         Optional<LeaveRequest> leaveRequest = Optional.ofNullable(leaveRequestService.getLeaveRequestById(id));
 
         if (leaveRequest.isPresent()) {
@@ -58,9 +58,9 @@ public class LeaveRequestController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/leaves/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<HttpStatus> deleteLeaveRequest(@PathVariable String id) {
+    public ResponseEntity<HttpStatus> deleteLeaveRequest(@PathVariable Long id) {
         try {
             leaveRequestService.deleteLeaveRequest(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -12,7 +12,11 @@ public class LeaveRequestService {
     @Autowired
     private LeaveRepository leaveRepository;
 
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+
     public LeaveRequest addLeaveRequest(LeaveRequest leaveRequest) {
+        leaveRequest.setId(sequenceGeneratorService.generateSequence(LeaveRequest.SEQUENCE_NAME));
         LeaveRequest leaveRequestData = leaveRepository.save(leaveRequest);
         return leaveRequestData;
     }
@@ -21,11 +25,11 @@ public class LeaveRequestService {
         return leaveRepository.findAll();
     }
 
-    public LeaveRequest getLeaveRequestById(String id){
+    public LeaveRequest getLeaveRequestById(Long id){
         return leaveRepository.findById(id).get();
     }
 
-    public void deleteLeaveRequest(String id) {
+    public void deleteLeaveRequest(Long id) {
         leaveRepository.deleteById(id);
     }
 
