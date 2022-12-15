@@ -2,6 +2,7 @@ package com.hsenid.lms.controller;
 
 import com.hsenid.lms.model.LeaveRequest;
 import com.hsenid.lms.services.LeaveRequestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/leaves")
@@ -38,6 +41,7 @@ public class LeaveRequestController {
     @PostMapping("")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<LeaveRequest> addLeaveRequest(@RequestBody LeaveRequest leaveRequest){
+        log.info("Entered creation of leave request");
         try {
             LeaveRequest leaveRequestD = leaveRequestService.addLeaveRequest(leaveRequest);
             return new ResponseEntity<>(leaveRequestD, HttpStatus.CREATED);
@@ -80,16 +84,18 @@ public class LeaveRequestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @PatchMapping("/{eId}/id")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<HttpStatus> acceptedLeaveRequest(@PathVariable Long id) {
-//        try {
-//            leaveRequestService.deleteLeaveRequest(id);
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PatchMapping("{id}/{leaveId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<HttpStatus> acceptLeaveRequest(@PathVariable Long leaveId, @RequestBody Map<Object,Object> fields) {
+        log.info("Accept leave request");
+        try {
+            log.info("In the try loop");
+            leaveRequestService.acceptLeaveRequest(leaveId,fields);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

@@ -12,6 +12,18 @@ public class SignupRequest {
     private Set<String> roles;
 
     @NotBlank
+    @Size(max = 20)
+    private String employeeId;
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    @NotBlank
     @Size(min = 2, max = 40)
     private String password;
 

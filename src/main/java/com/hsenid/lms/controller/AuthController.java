@@ -62,7 +62,9 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                roles));
+                roles,
+                userDetails.getEmployeeId()
+                ));
     }
 
     @PostMapping("/signup")
@@ -77,7 +79,7 @@ public class AuthController {
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),signUpRequest.getEmployeeId());
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();

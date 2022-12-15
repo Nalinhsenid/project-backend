@@ -22,6 +22,7 @@ public class LeaveRequest {
     private long id;
 
     private String employeeId;
+    private String employeeName;
     private Date leaveDate;
     private LeaveType leaveType;
     private Float leaveAmount;

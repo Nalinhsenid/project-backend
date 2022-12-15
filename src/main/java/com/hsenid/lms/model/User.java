@@ -18,18 +18,31 @@ public class User {
     @Size(max = 20)
     private String username;
     @NotBlank
+    @Size(max = 20)
+    private String employeeId;
+    @NotBlank
     @Size(max = 50)
     private String password;
 
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String employeeId) {
         this.username = username;
         this.password = password;
+        this.employeeId = employeeId;
     }
 
     public String getId() {
