@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongocon
+    hostname: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=lms
+    networks:
+      - main-network
+#    command: ["--bind_ip","0.0.0.0"]
+
+  web:
+    image: springbootapp:v1
+    container_name: springcon
+    restart: on-failure
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+    networks:
+      - main-network
+    links:
+      - mongo
+
+networks:
+  main-network:
+    external:
+      name: springboottraining
