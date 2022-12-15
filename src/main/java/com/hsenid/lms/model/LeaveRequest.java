@@ -27,4 +27,5 @@ public class LeaveRequest {
     private LeaveType leaveType;
     private Float leaveAmount;
     private Boolean isApproved;
+    private Boolean adminDecision;
 }
